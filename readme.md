@@ -1,192 +1,38 @@
-API Documentation
-1. Map Service API
-Overview
-Provides CRUD operations for managing maps in the system. Built with Fastify following RESTful conventions.
+# Robot Command Control System
 
-Endpoints
-Create Map
-POST /maps
+A TypeScript implementation for controlling a robot's movements and direction through a set of commands, with REST API support via Fastify.
 
-Request:
+## Features
 
-json
-{
-  "name": "string",
-  "description": "string",
-  "config": {}
-}
-Response:
+- Execute single or multiple robot commands
+- Track robot position and direction
+- Generate reports of current state
+- REST API endpoint for command execution
+- Fully typed with TypeScript
 
-json
-{
-  "success": true,
-  "data": {
-    "id": "string",
-    "name": "string",
-    "description": "string",
-    "config": {},
-    "createdAt": "ISO8601"
-  }
-}
-Get All Maps
-GET /maps
+## Command Types
 
-Response:
+The system supports the following commands:
 
-json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "string",
-      "name": "string",
-      "description": "string",
-      "config": {},
-      "createdAt": "ISO8601"
-    }
-  ]
-}
-Get Single Map
-GET /maps/:id
+- `MOVE`: Advance the robot one unit in its current direction
+- `LEFT`: Rotate the robot 90° left
+- `RIGHT`: Rotate the robot 90° right
+- `REPORT`: Get the current position and direction
 
-Response:
+## Directions
 
-json
-{
-  "success": true,
-  "data": {
-    "id": "string",
-    "name": "string",
-    "description": "string",
-    "config": {},
-    "createdAt": "ISO8601"
-  }
-}
-Update Map
-PUT /maps/:id
+The robot can face one of four cardinal directions:
 
-Request:
+- `NORTH`
+- `SOUTH`
+- `EAST`
+- `WEST`
 
-json
-{
-  "name": "string",
-  "description": "string",
-  "config": {}
-}
-Response:
+## Installation
 
-json
-{
-  "success": true,
-  "data": {
-    "id": "string",
-    "name": "string",
-    "description": "string",
-    "config": {},
-    "createdAt": "ISO8601"
-  }
-}
-Delete Map
-DELETE /maps/:id
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
 
-Response:
-
-json
-{
-  "success": true
-}
-Error Responses
-json
-{
-  "success": false,
-  "error": "Error message"
-}
-Status Codes:
-
-400: Bad Request
-
-404: Not Found
-
-500: Server Error
-
-2. Robot Command API
-Overview
-Provides command execution functionality for robot control systems.
-
-Endpoints
-Get Available Commands
-GET /commands
-
-Response:
-
-json
-{
-  "success": true,
-  "data": {
-    "commands": ["MOVE", "LEFT", "RIGHT", "REPORT"]
-  }
-}
-Execute Commands
-POST /command-sets/execute
-
-Request:
-
-json
-{
-  "commands": ["MOVE", "RIGHT"],
-  "initialPosition": {
-    "x": 0,
-    "y": 0
-  },
-  "initialDirection": "NORTH"
-}
-Response:
-
-json
-{
-  "success": true,
-  "data": {
-    "results": [
-      {
-        "command": "MOVE",
-        "oldPosition": {"x":0,"y":0},
-        "newPosition": {"x":0,"y":1},
-        "oldDirection": "NORTH",
-        "newDirection": "NORTH"
-      },
-      {
-        "command": "RIGHT",
-        "oldPosition": {"x":0,"y":1},
-        "newPosition": {"x":0,"y":1},
-        "oldDirection": "NORTH",
-        "newDirection": "EAST"
-      }
-    ],
-    "finalPosition": {"x":0,"y":1},
-    "finalDirection": "EAST"
-  }
-}
-Error Responses
-json
-{
-  "success": false,
-  "error": "Invalid command: JUMP"
-}
-Status Codes:
-
-400: Invalid command
-
-500: Server Error
-
-Setup & Usage
-Install dependencies:
-
-bash
-npm install
-Start server:
-
-bash
-npm run dev
-Access API at:
-
-http://localhost:3000
+   
